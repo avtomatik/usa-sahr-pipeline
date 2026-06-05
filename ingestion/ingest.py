@@ -1,15 +1,9 @@
-import duckdb
+from core.paths import RAW_DATA
+from core.warehouse import connect
 
-from .core.paths import RAW_DATA
 
-
-def ingest_raw(con: duckdb.DuckDBPyConnection) -> None:
-    """
-    Load raw JSON.GZ dataset into DuckDB.
-
-    Creates:
-        raw.sahr
-    """
+def main():
+    con = connect()
 
     con.execute(
         """
@@ -25,3 +19,7 @@ def ingest_raw(con: duckdb.DuckDBPyConnection) -> None:
         """,
         [str(RAW_DATA)],
     )
+
+
+if __name__ == "__main__":
+    main()
